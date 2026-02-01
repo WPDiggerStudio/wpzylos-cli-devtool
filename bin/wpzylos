@@ -1,0 +1,48 @@
+#!/usr/bin/env php
+<?php
+
+declare( strict_types=1 );
+
+/**
+ * WPZylos CLI Tool
+ *
+ * Scaffolds plugins and generates files outside WP runtime.
+ */
+
+// Find autoloader
+$autoLoaders = [
+        __DIR__ . '/../vendor/autoload.php',
+        __DIR__ . '/../../../autoload.php',
+        __DIR__ . '/../../../../vendor/autoload.php',
+];
+
+$autoloaderFound = false;
+foreach ( $autoLoaders as $autoloader ) {
+    if ( file_exists( $autoloader ) ) {
+        require $autoloader;
+        $autoloaderFound = true;
+        break;
+    }
+}
+
+if ( ! $autoloaderFound ) {
+    fwrite( STDERR, "Autoloader not found. Run: composer install\n" );
+    exit( 1 );
+}
+
+use Symfony\Component\Console\Application;
+use WPZylos\Framework\Cli\DevTool\Commands\MakeControllerCommand;
+use WPZylos\Framework\Cli\DevTool\Commands\MakeMigrationCommand;
+use WPZylos\Framework\Cli\DevTool\Commands\MakePluginCommand;
+use WPZylos\Framework\Cli\DevTool\Commands\MakeRequestCommand;
+
+$application = new Application( 'WPZylos CLI', '1.0.0' );
+
+$application->addCommands( [
+        new MakePluginCommand(),
+        new MakeControllerCommand(),
+        new MakeRequestCommand(),
+        new MakeMigrationCommand(),
+] );
+
+$application->run();
