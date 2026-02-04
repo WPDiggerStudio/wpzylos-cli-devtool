@@ -48,9 +48,16 @@
     }
   },
   "bin": [
-    "bin/wpzylos"
+    "bin/wpzylos",
+    "bin/wpzylos-install"
   ],
   "scripts": {
+    "post-install-cmd": [
+      "WPZylos\\Framework\\Cli\\DevTool\\Installer::postInstall"
+    ],
+    "post-update-cmd": [
+      "WPZylos\\Framework\\Cli\\DevTool\\Installer::postUpdate"
+    ],
     "test": "phpunit",
     "analyze": "phpstan analyze",
     "cs": "phpcs --standard=PSR12 src",
