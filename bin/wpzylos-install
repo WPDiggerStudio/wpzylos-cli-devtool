@@ -21,7 +21,7 @@ if (!is_dir($vendorDir) || basename($vendorDir) !== 'vendor') {
     // Try alternative path (when running from package root for testing)
     $projectRoot = getcwd();
     $vendorDir = $projectRoot . DIRECTORY_SEPARATOR . 'vendor';
-    
+
     if (!is_dir($vendorDir)) {
         fwrite(STDERR, "Error: Could not locate vendor directory.\n");
         fwrite(STDERR, "Run this from your project root: vendor/bin/wpzylos-install\n");

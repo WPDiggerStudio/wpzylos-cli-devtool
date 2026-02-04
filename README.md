@@ -36,31 +36,36 @@ Install as a dev dependency in your plugin:
 composer require --dev wpdiggerstudio/wpzylos-cli-devtool
 ```
 
-Or install globally:
-
-```bash
-composer global require wpdiggerstudio/wpzylos-cli-devtool
-```
-
 ---
 
 ## 📖 Quick Start
 
+After installing the package, you have **two options** to run CLI commands:
+
+### Option 1: Use Vendor Binary Directly
+
+Run commands directly from vendor/bin:
+
 ```bash
-# List all available commands
 vendor/bin/wpzylos list
-
-# Create a new plugin
-vendor/bin/wpzylos make:plugin my-awesome-plugin
-
-# Generate a controller
 vendor/bin/wpzylos make:controller ProductController
+```
 
-# Generate a form request
-vendor/bin/wpzylos make:request StoreProductRequest
+### Option 2: Create Root Executable (Recommended)
 
-# Generate a migration
-vendor/bin/wpzylos make:migration create_products_table
+For a cleaner experience like Laravel's `php artisan`, run the installer once:
+
+```bash
+vendor/bin/wpzylos-install
+```
+
+This creates a `wpzylos` file in your project root. Then use:
+
+```bash
+php wpzylos list
+php wpzylos make:controller ProductController
+php wpzylos make:request StoreProductRequest
+php wpzylos make:migration create_products_table
 ```
 
 ---
@@ -72,11 +77,12 @@ vendor/bin/wpzylos make:migration create_products_table
 Create a new WPZylos plugin from the scaffold template.
 
 ```bash
-vendor/bin/wpzylos make:plugin <name> [--namespace=<namespace>]
-
-# Examples
+# Using vendor binary
 vendor/bin/wpzylos make:plugin my-plugin
-vendor/bin/wpzylos make:plugin my-plugin --namespace=MyCompany\\MyPlugin
+
+# Or using root executable (after running wpzylos-install)
+php wpzylos make:plugin my-plugin
+php wpzylos make:plugin my-plugin --namespace=MyCompany\\MyPlugin
 ```
 
 ### make:controller
@@ -84,11 +90,8 @@ vendor/bin/wpzylos make:plugin my-plugin --namespace=MyCompany\\MyPlugin
 Generate a controller class.
 
 ```bash
-vendor/bin/wpzylos make:controller <name> [--resource]
-
-# Examples
-vendor/bin/wpzylos make:controller ProductController
-vendor/bin/wpzylos make:controller ProductController --resource
+php wpzylos make:controller ProductController
+php wpzylos make:controller ProductController --resource
 ```
 
 **Options:**
@@ -100,11 +103,8 @@ vendor/bin/wpzylos make:controller ProductController --resource
 Generate a FormRequest validation class.
 
 ```bash
-vendor/bin/wpzylos make:request <name>
-
-# Examples
-vendor/bin/wpzylos make:request StoreProductRequest
-vendor/bin/wpzylos make:request UpdateUserRequest
+php wpzylos make:request StoreProductRequest
+php wpzylos make:request UpdateUserRequest
 ```
 
 ### make:migration
@@ -112,12 +112,9 @@ vendor/bin/wpzylos make:request UpdateUserRequest
 Generate a database migration file.
 
 ```bash
-vendor/bin/wpzylos make:migration <name> [--create=<table>] [--table=<table>]
-
-# Examples
-vendor/bin/wpzylos make:migration create_products_table
-vendor/bin/wpzylos make:migration create_orders_table --create=orders
-vendor/bin/wpzylos make:migration add_status_to_orders --table=orders
+php wpzylos make:migration create_products_table
+php wpzylos make:migration create_orders_table --create=orders
+php wpzylos make:migration add_status_to_orders --table=orders
 ```
 
 **Options:**
